@@ -1,6 +1,6 @@
-# CERA Project
+# GRUPO CERA Educação
 
-Sistema completo composto por **back-end Node.js/Express** e **front-end Vite + Vue** (ou React, ajuste se necessário) com orquestração via **Docker Compose**.
+Sistema completo composto por **back-end Node.js/Express** e **front-end Vite + Vue**  com orquestração via **Docker Compose**.
 
 ---
 
@@ -37,13 +37,10 @@ Sistema completo composto por **back-end Node.js/Express** e **front-end Vite + 
 Crie um arquivo `.env` na raiz com, por exemplo:
 
 ```env
-# Porta exposta pelo back-end
 API_PORT=3000
 
-# Porta exposta pelo front-end em modo dev
 WEB_PORT=5173
 
-# Qualquer outro segredo
 JWT_SECRET=change_me
 ```
 
@@ -54,10 +51,8 @@ JWT_SECRET=change_me
 ## Executar com Docker
 
 ```bash
-# build + up em segundo plano
 docker compose up --build -d
 
-# parar
 docker compose down
 ```
 
@@ -75,7 +70,7 @@ A stack padrão cria:
 ```bash
 cd cera-back-end
 npm install
-npm run dev   # nodemon
+npm run dev 
 ```
 
 O servidor inicia em `http://localhost:$API_PORT` (3000 por padrão).
@@ -93,7 +88,7 @@ SPA disponível em `http://localhost:$WEB_PORT` (5173 por padrão).
 Para build de produção:
 
 ```bash
-npm run build   # gera dist/
+npm run build
 ```
 
 ---
