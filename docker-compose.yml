@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./cera-back-end
+    container_name: cera-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/cera
+      - JWT_SECRET=supersecreta
+      - JWT_EXPIRES_IN=1h
+      - JWT_REFRESH_SECRET=refreshsecreta
+      - JWT_REFRESH_EXPIRES_IN=7d
+    networks:
+      - cera-network
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./cera-front-end
+    container_name: cera-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - cera-network
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - cera-network
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017/cera
+    networks:
+      - cera-network
+    depends_on:
+      - mongo
+
+networks:
+  cera-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
